@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*
 from __future__ import absolute_import, division, print_function
 
+import ast
 import sys
 from os.path import abspath, dirname, join
 
@@ -12,12 +13,9 @@ with open(join(PROJECT_ROOT, 'README.rst')) as f:
     readme = f.read()
 
 with open(join(PROJECT_ROOT, 'travis_solo.py')) as f:
-    version_line = [
-        line for line in f.readlines(
-        ) if line.startswith(
-            '__version__')][
-        0]
-    version = version_line.split('=')[1].strip().strip("'")
+    for line in f:
+        if line.startswith('__version__'):
+            version = ast.parse(line).body[0].value.s
 
 install_requires = [
     'PyYAML',
