@@ -105,12 +105,15 @@ class Step(Structure):
                 raise
 
     def execute(self, command, environ):
-        if command.startswith('sudo'):
-            log(colored(
-                '%r ignored because it contains sudo reference' % (command,), 'yellow'))
-        else:
-            log_command(command)
-            self.check_call(command, shell=True, env=environ)
+        for blacklisted in ['sudo', 'git config']:
+            if command.startswith(blacklisted):
+                log(colored(
+                    '{0} ignored because it contains {1} reference'.format(
+                        command, blacklisted),
+                    'yellow'))
+
+        log_command(command)
+        self.check_call(command, shell=True, env=environ)
 
     @native_str_result
     def __str__(self):
