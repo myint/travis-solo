@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*
 from __future__ import absolute_import, division, print_function
 
-from setuptools import setup
-
+import sys
 from os.path import abspath, dirname, join
+
+from setuptools import setup
 
 PROJECT_ROOT = abspath(dirname(__file__))
 with open(join(PROJECT_ROOT, 'README.rst')) as f:
@@ -23,10 +24,14 @@ install_requires = [
     'termcolor',
 ]
 
-try:
-    import argparse
-except ImportError:
+if sys.version_info < (2, 7):
     install_requires.append('argparse')
+
+tests_require = ['nose']
+
+if sys.version_info < (3, 3):
+    tests_require.append('mock')
+
 
 setup(
     name='travis-solo',
@@ -49,6 +54,7 @@ setup(
             'travis-solo = travis_solo:main',
         ],
     ),
+    test_suite='nose.collector',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
