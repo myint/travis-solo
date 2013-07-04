@@ -111,6 +111,7 @@ class Step(Structure):
                     '{0} ignored because it contains {1} reference'.format(
                         command, blacklisted),
                     'yellow'))
+                return
 
         log_command(command)
         self.check_call(command, shell=True, env=environ)
