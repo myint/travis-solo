@@ -35,15 +35,15 @@ setup(
     long_description=readme,
     author='Jakub Stasiak',
     url='https://github.com/jstasiak/travis-solo',
-        author_email='jakub@stasiak.at',
-        py_modules=['travis_solo'],
-        platforms=['unix', 'linux', 'osx'],
-        license='MIT',
-        install_requires=install_requires,
-        tests_require=[
-                'mock==1.0.1',
-                'nose==1.2.1',
-        ],
+    author_email='jakub@stasiak.at',
+    py_modules=['travis_solo'],
+    platforms=['unix', 'linux', 'osx'],
+    license='MIT',
+    install_requires=install_requires,
+    tests_require=[
+            'mock==1.0.1',
+            'nose==1.2.1',
+    ],
     entry_points=dict(
         console_scripts=[
             'travis-solo = travis_solo:main',
