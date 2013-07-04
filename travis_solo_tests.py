@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (absolute_import,
+                        division,
+                        print_function,
+                        unicode_literals)
 
 from itertools import permutations
 from os.path import join
@@ -36,7 +39,9 @@ class TestLoader(object):
         )
 
         for i in range(len(settings)):
-            yield self.check_loading_steps, dict(settings[:i] + settings[i + 1:]), expected[:i] + expected[i + 1:]
+            yield (self.check_loading_steps,
+                   dict(settings[:i] + settings[i + 1:]),
+                   expected[:i] + expected[i + 1:])
 
     def check_loading_steps(self, settings, expected):
         result = self.loader.load_steps(settings)
@@ -127,7 +132,9 @@ class TestRunner(object):
             ((succeeding, failing_and_can_fail), 0),
                 ((succeeding, failing, failing_and_can_fail), 1)):
             for confs_permutation in permutations(confs):
-                yield self.check_configurations_and_result, confs_permutation, result
+                yield (self.check_configurations_and_result,
+                       confs_permutation,
+                       result)
 
     def check_configurations_and_result(self, configurations, result):
         self.runner.configurations = configurations
@@ -143,7 +150,9 @@ class TestConfiguration(object):
         self.exists = Mock()
         self.rmtree = Mock()
         self.configuration = Configuration(
-            python='2.7', variables=dict(A='a', B='x'), check_call=self.check_call, isdir=self.isdir, environ=self.environ, exists=self.exists, rmtree=self.rmtree)
+            python='2.7', variables=dict(A='a', B='x'),
+            check_call=self.check_call, isdir=self.isdir, environ=self.environ,
+            exists=self.exists, rmtree=self.rmtree)
 
     def test_env_vars_are_set_before_running_a_build(self):
         outer = self

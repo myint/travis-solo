@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
+
+from __future__ import (absolute_import,
+                        division,
+                        print_function,
+                        unicode_literals)
 
 import functools
 import json
@@ -72,7 +76,8 @@ class Structure(object):
         return (
             isinstance(self, type(other)) and
             [getattr(self, str(f))
-             for f in self.fields] == [getattr(other, str(f)) for f in self.fields]
+             for f in self.fields] == [getattr(other, str(f))
+                                       for f in self.fields]
         )
 
     def __repr__(self):
@@ -137,8 +142,10 @@ class Configuration(Structure):
 
     def __init__(
         self,
-        python, variables, base_path='.travis-solo', can_fail=False, recreate=False,
-        check_call=check_call, isdir=isdir, environ=os.environ, exists=exists, rmtree=shutil.rmtree
+        python, variables, base_path='.travis-solo', can_fail=False,
+        recreate=False,
+        check_call=check_call, isdir=isdir, environ=os.environ, exists=exists,
+        rmtree=shutil.rmtree
     ):
         self.base_path = base_path
         self.python = python
@@ -157,7 +164,8 @@ class Configuration(Structure):
 
     @property
     def full_python(self):
-        return ('python' if not self.python.startswith('py') else '') + self.python
+        return ('python' if not self.python.startswith('py')
+                else '') + self.python
 
     def run_build(self, build):
         original_environ = self.environ.copy()
@@ -278,8 +286,8 @@ class Loader(object):
         return tuple(steps)
 
     def load_configurations(self, settings, recreate=False):
-        assert settings[
-            'language'] == 'python', 'Only Python projects are supported right now'
+        assert settings['language'] == 'python', \
+            'Only Python projects are supported right now'
 
         versions = as_tuple(settings.get('python', '2.7'))
         env_sets = [self.parse_env_set(es)
@@ -359,8 +367,9 @@ class Application(object):
         parser = ArgumentParser(description='Local Travis build runner')
         parser.add_argument(
             '--overwrite', dest='overwrite', action='store',
-            help='Overwrite settings loaded from file with JSON-encoded dict. Usage:\n'
-            '''--overwrite '{"python": "2.7", "env": ["A=a", "A=b"]}' ''')
+            help='overwrite settings loaded from file with JSON-encoded dict '
+                 '(i.e., '
+                 '''--overwrite '{"python": "2.7", "env": ["A=a", "A=b"]}')''')
         parser.add_argument(
             '-j', '--jobs', type=int, default=1,
             help='number of parallel jobs; '
