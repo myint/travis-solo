@@ -41,8 +41,8 @@ setup(
     license='MIT',
     install_requires=install_requires,
     tests_require=[
-            'mock==1.0.1',
-            'nose==1.2.1',
+            'mock',
+            'nose',
     ],
     entry_points=dict(
         console_scripts=[
