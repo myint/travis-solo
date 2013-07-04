@@ -110,8 +110,8 @@ class Step(Structure):
                 raise
 
     def execute(self, command, environ):
-        for blacklisted in ['sudo', 'git config']:
-            if command.startswith(blacklisted):
+        for blacklisted in ['sudo', 'git config', '~/.gitconfig', '~/.hgrc']:
+            if blacklisted in command:
                 log(colored(
                     '{0} ignored because it contains {1} reference'.format(
                         command, blacklisted),
