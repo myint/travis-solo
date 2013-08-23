@@ -336,6 +336,9 @@ class Loader(object):
         if not PY3:
             env_set = env_set.encode('utf-8')
 
+        if not env_set:
+            return ()
+
         assignments = shlex.split(env_set)
 
         if not PY3:
