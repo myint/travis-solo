@@ -289,7 +289,12 @@ class Loader(object):
         assert settings['language'] == 'python', \
             'Only Python projects are supported right now'
 
-        versions = as_tuple(settings.get('python', '2.7'))
+        versions = [str(v) for v in as_tuple(settings.get('python', '2.7'))]
+
+        if '2.5' in versions:
+            log('Python 2.5 is not supported due to virtualenv')
+            versions = [v for v in versions if v != '2.5']
+
         env_sets = [self.parse_env_set(es)
                     for es in as_tuple(settings.get('env', ''))]
 
