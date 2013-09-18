@@ -118,6 +118,10 @@ class Step(Structure):
                     'yellow'))
                 return
 
+        command = re.sub(r'\b(setup.py .*) +\binstall\b(.*)',
+                         r'\1 develop \2',
+                         command)
+
         log_command(command)
         self.check_call(command, shell=True, env=environ)
 
