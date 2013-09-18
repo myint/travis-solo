@@ -118,7 +118,7 @@ class Step(Structure):
                     'yellow'))
                 return
 
-        command = re.sub(r'\b(setup.py .*) +\binstall\b(.*)',
+        command = re.sub(r'\b(setup.py\b.*) +\binstall\b(.*)',
                          r'\1 develop \2',
                          command)
 
