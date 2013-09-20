@@ -118,9 +118,10 @@ class Step(Structure):
                     'yellow'))
                 return
 
-        command = re.sub(r'\b(setup.py\b.*) +\binstall\b *(.*)',
-                         r'\1 develop \2',
-                         command)
+        if 'setup.py' in command and using_setuptools('setup.py'):
+            command = re.sub(r'\b(setup.py\b.*) +\binstall\b *(.*)',
+                             r'\1 develop \2',
+                             command)
 
         log_command(command)
         self.check_call(command, shell=True, env=environ)
@@ -128,6 +129,12 @@ class Step(Structure):
     @native_str_result
     def __str__(self):
         return self.name
+
+
+def using_setuptools(filename):
+    """Return True if setuptools is used."""
+    with open(filename) as input_file:
+        return 'setuptools' in input_file.read()
 
 
 class Build(Structure):
