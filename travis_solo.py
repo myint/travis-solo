@@ -134,7 +134,12 @@ class Step(Structure):
 def using_setuptools(filename):
     """Return True if setuptools is used."""
     with open(filename) as input_file:
-        return 'setuptools' in input_file.read()
+        contents = input_file.read()
+
+    return (
+        ('import setuptools' in contents) or
+        ('from setuptools import' in contents)
+    )
 
 
 class Build(Structure):
