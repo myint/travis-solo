@@ -17,7 +17,7 @@ import sys
 from argparse import ArgumentParser
 from itertools import product
 from os import getcwd
-from os.path import exists, isdir, isfile, join
+from os.path import exists, isfile, join
 from subprocess import CalledProcessError, check_call
 
 from termcolor import colored
@@ -160,7 +160,7 @@ class Configuration(Structure):
         self,
         python, variables, base_path='.travis-solo', can_fail=False,
         recreate=False,
-        check_call=check_call, isdir=isdir, environ=os.environ, exists=exists,
+        check_call=check_call, environ=os.environ, exists=exists,
         rmtree=shutil.rmtree
     ):
         self.base_path = base_path
@@ -169,7 +169,6 @@ class Configuration(Structure):
         self.can_fail = can_fail
         self.recreate = recreate
         self.check_call = check_call
-        self.isdir = isdir
         self.environ = environ.copy()
         self.exists = exists
         self.rmtree = rmtree
