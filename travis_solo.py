@@ -302,9 +302,6 @@ class Loader(object):
         return tuple(steps)
 
     def load_configurations(self, settings, recreate=False):
-        assert settings['language'] == 'python', \
-            'Only Python projects are supported right now'
-
         versions = [str(v) for v in as_tuple(settings.get('python', '2.7'))]
 
         if '2.5' in versions:
